@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>特斯拉授权回调</title>
+<style>
+body{font-family:-apple-system,sans-serif;max-width:640px;margin:40px auto;padding:0 20px}
+pre{background:#f4f4f4;padding:12px;word-break:break-all;white-space:pre-wrap}
+button{padding:10px 24px;font-size:16px}
+</style>
+</head>
+<body>
+<h2>授权成功</h2>
+<p>点按钮复制 code，发给你的 Muse（只发给它，不要发给别人）：</p>
+<pre id="code"></pre>
+<button onclick="copyCode()">复制 code</button>
+<p id="msg"></p>
+<script>
+const p = new URLSearchParams(location.search);
+const c = p.get('code') || '';
+document.getElementById('code').textContent = c || '（没拿到 code，请检查网址里有没有 ?code=）';
+function copyCode(){
+  navigator.clipboard.writeText(c).then(
+    ()=>{document.getElementById('msg').textContent='已复制，去发给 Muse 吧';},
+    ()=>{document.getElementById('msg').textContent='复制失败，手动长按上面的 code 复制';}
+  );
+}
+</script>
+</body>
+</html>
